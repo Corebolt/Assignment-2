@@ -125,6 +125,47 @@ public class App {
         System.out.println("country delete = " + succeeded);
         }
 
+        //////////////////// Assignment 2 Part 2 ////////////////////////
+        //seperate part 2 from part 1
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("Assignment 2 Part 2");
+
+        //connect to database
+        try (Connection connection = Database.getDatabaseConnection();
+        Statement statement = connection.createStatement();)
+        {
+        // find any city by city name
+        City findCityName = new City();
+        CityDao cityDao = new CityDao(connection);
+        findCityName = cityDao.findByName("Kabul");
         
+        System.out.println("Find city by name: " + findCityName);
+
+        //find all cities from a given country by country code
+        cityList = cityDao.findAllInCountry("USA");
+
+        System.out.println("Find all cities in a given country: " + cityList);
+
+        //find all cities with population greater then 1,000,000
+        cityList = cityDao.findAllLargePopulation();
+
+        System.out.println("All cities over 1,000,000 population: " + cityList);
+
+        //find a country by country name
+        Country findCountryName = new Country();
+        CountryDao countryDao = new CountryDao(connection);
+        findCountryName = countryDao.findByName("Canada");
+
+        System.out.println("Find country by name: " + findCountryName);
+
+        //find all country in a given region by searching region
+        countryList = countryDao.findAllInRegion("North America");
+
+        System.out.println("Find all countries in a region: " + countryList);
+        }
     }
 }
